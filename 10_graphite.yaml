@@ -7,7 +7,7 @@ metadata:
   name: graphite-pvc
   namespace: benchmark
 spec:
-  storageClassName: basic
+  storageClassName: cvs-premium
   accessModes:
     - ReadWriteOnce
   resources:
@@ -40,6 +40,13 @@ spec:
       - name: graphite-vol
         persistentVolumeClaim:
           claimName: graphite-pvc
+      initContainers:
+      - name: take-ownership
+        image: busybox
+        command: ['sh', '-c', 'chown 33:33 "/var/lib/graphite/storage/whisper"']
+        volumeMounts:
+        - mountPath: "/var/lib/graphite/storage/whisper"
+          name: graphite-vol
       containers:
       - name: graphite
         image: nickstenning/graphite
@@ -94,7 +101,7 @@ metadata:
     app: graphite
   namespace: benchmark
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       protocol: TCP
