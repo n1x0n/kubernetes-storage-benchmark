@@ -1,0 +1,104 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: graphite
+  name: graphite-pvc
+  namespace: benchmark
+spec:
+  storageClassName: basic
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: graphite
+  name: graphite
+  namespace: benchmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphite
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: graphite
+    spec:
+      volumes:
+      - name: graphite-vol
+        persistentVolumeClaim:
+          claimName: graphite-pvc
+      containers:
+      - name: graphite
+        image: nickstenning/graphite
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        - containerPort: 2003
+          protocol: TCP
+        - containerPort: 2004
+          protocol: TCP
+        - containerPort: 7002
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/var/lib/graphite/storage/whisper"
+          name: graphite-vol
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphite
+  labels:
+    app: graphite
+  namespace: benchmark
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: carbon-cache-line
+      protocol: TCP
+      port: 2003
+      targetPort: 2003
+    - name: carbon-cache-pickle
+      protocol: TCP
+      port: 2004
+      targetPort: 2004
+    - name: carbon-cache-query
+      protocol: TCP
+      port: 7002
+      targetPort: 7002
+  selector:
+    app: graphite
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphite-external
+  labels:
+    app: graphite
+  namespace: benchmark
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: graphite
