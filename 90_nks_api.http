@@ -1,0 +1,53 @@
+# List workspaces
+GET https://api.nks.netapp.io/orgs
+Authorization: Bearer YOURKEYHERE
+
+###
+# List teams
+GET https://api.nks.netapp.io/orgs/12233/workspaces
+Authorization: Bearer YOURKEYHERE
+
+###
+# List clusters
+GET https://api.nks.netapp.io/orgs/12233/workspaces/20534/clusters
+Authorization: Bearer YOURKEYHERE
+
+###
+# List clusters
+GET https://api.nks.netapp.io/orgs/12233/keysets
+Authorization: Bearer YOURKEYHERE
+
+###
+# Create new cluster
+POST https://api.nks.netapp.io/orgs/12233/workspaces/20534/clusters
+Authorization: Bearer YOURKEYHERE
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "FredrikN Demo",
+    "provider": "aws",
+    "provider_keyset": 52329,
+    "master_count": 1,
+    "master_size": "t2.large",
+    "worker_count": 2,
+    "worker_size": "t2.large",
+    "region": "eu-west-1",
+    "zone": "eu-west-1a",
+    "provider_network_id": "vpc-690e280f",
+    "provider_network_cidr": "172.31.0.0/16",
+    "provider_subnet_id": "subnet-0348a98f9673460c5",
+    "provider_subnet_cidr": "172.31.3.0/24",
+    "k8s_version": "v1.15.3",
+    "k8s_rbac_enabled": true,
+    "k8s_dashboard_enabled": true,
+    "etcd_type": "classic",
+    "platform": "ubuntu",
+    "channel": "18.04-lts",
+    "user_ssh_keyset": 39738,
+    "solutions": [
+        {
+            "solution": "helm_tiller"
+        }
+    ]
+}
