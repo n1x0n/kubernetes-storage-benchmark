@@ -1,26 +1,26 @@
 # List workspaces
 GET https://api.nks.netapp.io/orgs
-Authorization: Bearer YOURKEYHERE
+Authorization: Bearer {{bearerToken}}
 
 ###
 # List teams
-GET https://api.nks.netapp.io/orgs/12233/workspaces
-Authorization: Bearer YOURKEYHERE
+GET https://api.nks.netapp.io/orgs/{{org}}/workspaces
+Authorization: Bearer {{bearerToken}}
 
 ###
 # List clusters
-GET https://api.nks.netapp.io/orgs/12233/workspaces/20534/clusters
-Authorization: Bearer YOURKEYHERE
+GET https://api.nks.netapp.io/orgs/{{org}}/workspaces/{{workspace}}/clusters
+Authorization: Bearer {{bearerToken}}
 
 ###
-# List clusters
-GET https://api.nks.netapp.io/orgs/12233/keysets
-Authorization: Bearer YOURKEYHERE
+# List keysets
+GET https://api.nks.netapp.io/orgs/{{org}}/keysets
+Authorization: Bearer {{bearerToken}}
 
 ###
 # Create new cluster
-POST https://api.nks.netapp.io/orgs/12233/workspaces/20534/clusters
-Authorization: Bearer YOURKEYHERE
+POST https://api.nks.netapp.io/orgs/{{org}}/workspaces/{{workspace}}/clusters
+Authorization: Bearer {{bearerToken}}
 Content-Type: application/json
 Accept: application/json
 
