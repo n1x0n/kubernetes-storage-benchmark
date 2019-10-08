@@ -18,6 +18,11 @@ GET https://api.nks.netapp.io/orgs/{{org}}/keysets
 Authorization: Bearer {{bearerToken}}
 
 ###
+# List notifications
+GET https://api.nks.netapp.io/user/notifications
+Authorization: Bearer {{bearerToken}}
+
+###
 # Create new cluster
 POST https://api.nks.netapp.io/orgs/{{org}}/workspaces/{{workspace}}/clusters
 Authorization: Bearer {{bearerToken}}
@@ -36,8 +41,8 @@ Accept: application/json
     "zone": "eu-west-1a",
     "provider_network_id": "vpc-690e280f",
     "provider_network_cidr": "172.31.0.0/16",
-    "provider_subnet_id": "subnet-0348a98f9673460c5",
-    "provider_subnet_cidr": "172.31.3.0/24",
+    "provider_subnet_id": "subnet-0257fffa3eb9a514e",
+    "provider_subnet_cidr": "172.31.0.0/24",
     "k8s_version": "v1.15.3",
     "k8s_rbac_enabled": true,
     "k8s_dashboard_enabled": true,
