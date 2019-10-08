@@ -1,0 +1,58 @@
+{
+    "version": 1,
+    "storageDriverName": "aws-cvs",
+    "apiRegion": "eu-west-1",
+    "apiURL": "https://cv.eu-west-1.netapp.com:8080/v1/",
+    "apiKey": "apiKey",
+    "secretKey": "secretKey",
+    "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
+    "defaults": {
+        "snapshotReserve": "5",
+        "exportRule": "0.0.0.0/0"
+    },
+    "labels": {
+        "cloud": "aws"
+    },
+    "region": "eu-west-1",
+    "storage": [{
+            "labels": {
+                "performance": "extreme",
+                "protection": "extra"
+            },
+            "serviceLevel": "extreme",
+            "defaults": {
+                "snapshotReserve": "10"
+            }
+        },
+        {
+            "labels": {
+                "performance": "extreme",
+                "protection": "standard"
+            },
+            "serviceLevel": "extreme"
+        },
+        {
+            "labels": {
+                "performance": "premium",
+                "protection": "extra"
+            },
+            "serviceLevel": "premium",
+            "defaults": {
+                "snapshotReserve": "10"
+            }
+        },
+        {
+            "labels": {
+                "performance": "premium",
+                "protection": "standard"
+            },
+            "serviceLevel": "premium"
+        },
+        {
+            "labels": {
+                "performance": "standard"
+            },
+            "serviceLevel": "standard"
+        }
+    ]
+}
